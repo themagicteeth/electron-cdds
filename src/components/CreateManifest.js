@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Button } from 'react-desktop/windows'
-var AdmZip = window.require('adm-zip')
-
+import { Button, ProgressCircle } from 'react-desktop/windows'
+var JSZip = window.require('jszip')
+var fs = window.require('fs')
 const { dialog, systemPreferences } = window.require('electron').remote
 
 export default class extends Component {
@@ -22,23 +22,21 @@ export default class extends Component {
               },
               function(files) {
                 if (files !== undefined) {
-                  var zip = new AdmZip(files[0])
-                  var zipEntries = zip.getEntries()
-
-                  zipEntries.forEach(function(zipEntry) {
-                    var node = document.createElement('li')
-                    var textnode = document.createTextNode(zipEntry.name)
-                    node.appendChild(textnode)
-                    document.getElementById('archive').appendChild(node)
-                    console.log(zipEntry.name)
+                  // var zip = new JSZip()
+                  fs.readFile(files[0], function(err, data) {
+                    if (err) throw err
+                    JSZip.loadAsync(data).then(function(zip) {
+                      console.log(zip)
+                    })
                   })
                 }
               }
             )
           }
         >
-          Press me!
+          Select Archive
         </Button>
+
         <ul id="archive" />
       </div>
     )

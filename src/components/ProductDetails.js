@@ -15,8 +15,8 @@ export default class extends Component {
     return (
       <div>
         <Text background={'white'} theme={this.props.theme} width={'75%'}>
-          All of the following fields are optional. These will add context to
-          your DAZ content if you wish.
+          All of the following fields are optional. These will add context to your DAZ content if
+          you wish.
         </Text>
         <br />
         <div>
